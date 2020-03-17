@@ -22,7 +22,7 @@ public class Jäägiklass {
         return tsükkel;
     }
 
-    public int taandamine(int a) { return a % moodul; } //taandab vähimaks mittenegatiivseks jäägiklassi esindajaks
+    public int taandamine(int a) { return (a % moodul + moodul) % moodul; } //taandab vähimaks mittenegatiivseks jäägiklassi esindajaks
 
     public int liitmine(int a, int b){
         return (a + b) % moodul;
@@ -48,14 +48,18 @@ public class Jäägiklass {
         // (kasulik on Lagrange'i teoreem)
         ArrayList<Integer> võimalikudAstmed = Tegurdus.tegurid(moodul - 1);
         int moodustaja = 1;
+        boolean muutuja;
         for (int i = 1; i < moodul; i++) {
-            for (int j = 0; j < võimalikudAstmed.size(); j++)
-                if (taandamine(astendamine(i, võimalikudAstmed.get(j))) == 1 && võimalikudAstmed.get(j) != -1) {
-                    break;
-                } else {
-                    moodustaja = i;
+            muutuja = true;
+            for (int j = 0; j < võimalikudAstmed.size(); j++) {
+                if (taandamine(astendamine(i, võimalikudAstmed.get(j))) == 1 && võimalikudAstmed.get(j) != moodul - 1) {
+                    muutuja = false;
                 }
-            if (moodustaja != 1){ break; }
+            }
+            if (muutuja == true){
+                moodustaja = i;
+                break;
+            }
         }
         //loome tsükli
         int[] tsükkel1 = new int[moodul-1];
@@ -67,7 +71,7 @@ public class Jäägiklass {
     }
 
     public int pöördarv(int a){ //leiab antud jäägiklassi pöördelemendi
-        if(a == 0){
+        if(taandamine(a) == 0){
             return 1; //siia erind
         }
         else {
@@ -83,7 +87,7 @@ public class Jäägiklass {
     }
 
     public int jagamine(int a, int b ) { //jagab jäägiklassi a jäägiklassiga b (st korrutab a b pöördelemendiga)
-        if (b == 0){
+        if (taandamine(b) == 0){
             return 1;
             //viskab erindi
         }

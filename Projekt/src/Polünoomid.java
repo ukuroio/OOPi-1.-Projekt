@@ -39,6 +39,7 @@ public class Polünoomid {
         //liidame vastavad elemendid kokku
         for (int i = 0; i < pikkus ; i++) {
             väljund[i]=Zn.liitmine(polüA[i], polüB[i]);
+
         }
         return väljund;
     }
@@ -91,7 +92,7 @@ public class Polünoomid {
 
     //eemaldab kõik esimesed nullid peale vabaliikme
     public int[] eemaldaNullid(int[] a){
-        while (a[0] == 0 && a.length != 1){
+        while (a[0] == 0 & a.length != 1){
             a = eemaldaNull(a);
         }
         return a;
@@ -172,13 +173,15 @@ public class Polünoomid {
 
         //jagamisprotsess on tavaline polünoomide jäägiga jagamine
         int[] eelmineJagatis = {0};
-        while ((jagatav.length >= jagaja.length)) {
+        int[] nullpolü = {0};
+        while(jagatav.length >= jagaja.length && !Arrays.equals(jagatav,nullpolü)){
             jagatis[pikkus - (jagatav.length - jagaja.length + 1)] = Zn.jagamine(jagatav[0], jagaja[0]);
             jagatav = lahuta(jagatav, korruta(lahuta(jagatis, eelmineJagatis), jagaja));
             eelmineJagatis = jagatis.clone();
         }
-        väljund[0] = jagatis;
-        väljund[1] = jagatav;
+        väljund[0] = ilusaleKujule(jagatis);
+        väljund[1] = ilusaleKujule(jagatav);
         return väljund;
     }
+
 }
