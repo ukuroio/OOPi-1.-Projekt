@@ -166,6 +166,13 @@ public class Polünoomid {
         //loome jäägiklassi mooduli järgi
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
+
+        for (int i = 0; i < jagaja.length ; i++) {
+            if(jagaja.length==1 && jagaja[i]==0){
+                throw new ArithmeticException("Nulliga jagamine");
+            }
+        }
+
         //loome väljundi kujul [jagatis, jääk]
         int[][] väljund = new int[2][2];
         int[] jagatis = new int[Math.max(jagatav.length-jagaja.length + 1,1)];
@@ -182,6 +189,28 @@ public class Polünoomid {
         väljund[0] = ilusaleKujule(jagatis);
         väljund[1] = ilusaleKujule(jagatav);
         return väljund;
+    }
+
+    public int[] SÜT(int[] polünoom1, int[] polünoom2) {
+        Jäägiklass Zn = new Jäägiklass(moodul);
+        Zn.looTsükkel();
+        int[][] a = new int[2][2];
+        while (a[1].length != 1) {
+            int[] r = polünoom2;
+            a = jaga(polünoom1, polünoom2);
+            polünoom2 = a[0];
+            polünoom1 = r;
+        }
+
+        int[] pöördarv = {Zn.pöördarv(a[1][0])};
+        return korruta(pöördarv,a[1]);
+    }
+
+    public int[] VÜK(int[] polünoom1, int[] polünoom2){
+       int[] korrutis = korruta(polünoom1, polünoom2);
+       int[] süt = SÜT(polünoom1, polünoom2);
+       int[][] vük = jaga(korrutis, süt);
+       return vük[0];
     }
 
 }

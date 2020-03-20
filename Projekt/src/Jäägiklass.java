@@ -46,7 +46,7 @@ public class Jäägiklass {
         //leiame moodustaja (teame, et iga lõplik korpus on tsükliline)
         //põhimõtteliselt käime läbi elemendid ja kontrollime, et nad ei oleks liiga väikesel astmel võrdsed ühega
         // (kasulik on Lagrange'i teoreem)
-        ArrayList<Integer> võimalikudAstmed = Tegurdus.tegurid(moodul - 1);
+        ArrayList<Integer> võimalikudAstmed = tegurid(moodul - 1);
         int moodustaja = 1;
         boolean muutuja;
         for (int i = 1; i < moodul; i++) {
@@ -72,7 +72,7 @@ public class Jäägiklass {
 
     public int pöördarv(int a){ //leiab antud jäägiklassi pöördelemendi
         if(taandamine(a) == 0){
-            return 1; //siia erind
+            throw new ArithmeticException("Element on 0");
         }
         else {
             int positsioon = 0;
@@ -88,12 +88,27 @@ public class Jäägiklass {
 
     public int jagamine(int a, int b ) { //jagab jäägiklassi a jäägiklassiga b (st korrutab a b pöördelemendiga)
         if (taandamine(b) == 0){
-            return 1;
-            //viskab erindi
+            throw new ArithmeticException("Nulliga jagamine");
         }
         else{
             return korrutamine(a,pöördarv(b));
         }
+    }
+
+    //Tegurdus
+    public ArrayList<Integer> tegurid(int arv){
+        ArrayList<Integer> list= new ArrayList<>();
+        for (int i = 2; i <= arv; i++) {
+            if (arv % i == 0){
+                list.add(i);
+                for (int j = 0; j < list.size()-1; j++) {
+                    if (i % list.get(j) == 0){
+                        list.remove(j);
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     @Override
