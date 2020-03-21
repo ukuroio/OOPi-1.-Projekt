@@ -20,12 +20,13 @@ public class Liides {
         System.out.println("Millist tegevust soovid lasta programmil teha? Sisesta vastav arv." + "\n" + "1. Jaga" + "\n" + "2. Korruta" +
                 "\n" + "3. Liida" + "\n" + "4. Lahuta" + "\n" + "5. Leia polünoomide SÜT" + "\n" + "6. Leia polünoomide VÜK" +
                 "\n" + "7. Leia pöördarv jäägiklassis" + "\n" + "8. Astenda jäägiklassis");
+
         int tegevus = scan.nextInt();
         System.out.println("Valisid tegevuse " + tegevus);
         System.out.println("Sisesta moodul, mille järgi soovid jäägiklassikorpuse luua. Moodul peab olema algarv.");
         int moodul = scan.nextInt();
 
-        if(!onAlgarv(moodul)){
+        while(!onAlgarv(moodul)){
             System.out.println("Moodul peab olema algarv. Palun sisesta uus arv.");
             moodul = scan.nextInt();
         }
@@ -37,9 +38,16 @@ public class Liides {
 
         System.out.println("Kas soovid tehet teostada: 1. jäägiklassis või 2. polünoomide klassis?");
         int valik1 = scan.nextInt();
+        
+        while(tegevus == 5 && valik1 == 1 || tegevus == 6 && valik1 == 1){
+            System.out.println("Antud tehet saab teostada ainult polünoomide klassis. Palun vali õige klass.");
+            valik1 = scan.nextInt();
+            if(valik1==2){
+                break;
+            }
+        }
 
-        //Siin kontrolli kas kasutaja pani õigesti
-
+        //Jäägiklassi tehted
         if (valik1 == 1) {
             if(tegevus==7){
                 System.out.println("Sisesta täisarv, mille pöördarvu soovid leida.");
@@ -74,6 +82,7 @@ public class Liides {
             }
         }
 
+        //Polünoomide klassi tehted
         if (valik1 == 2) {
             System.out.println("Sisesta esimese polünoomi liikmete arv");
             int n = scan.nextInt();
@@ -94,7 +103,7 @@ public class Liides {
             System.out.println("Sisestasid järgmise polünoomi: " + Arrays.toString(polünoom2));
 
             if(tegevus==1){
-                System.out.println("Polünoomide jagatis on " + Arrays.toString((moodul2.jaga(polünoom, polünoom2))));
+                System.out.println("Polünoomide jagatis on " + Arrays.deepToString(((moodul2.jaga(polünoom, polünoom2)))));
             }
 
             if(tegevus==2){
