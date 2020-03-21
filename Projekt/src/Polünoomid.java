@@ -193,22 +193,28 @@ public class Polünoomid {
     public int[] SÜT(int[] polünoom1, int[] polünoom2) {
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
+
+        if(polünoom1[0]==0 && polünoom2[0]==0){
+            return polünoom1;
+        }
+
         int[][] a = new int[2][2];
         int pikkus = Math.max(polünoom1.length, polünoom2.length);
         int pikkus2 = Math.min(polünoom1.length, polünoom2.length);
         int[] väiksem= new int[pikkus2];
         int[] suurem = new int[pikkus];
-        
+
         if(polünoom1.length > polünoom2.length) {
             a = jaga(polünoom1, polünoom2);
             väiksem = polünoom2.clone();
             suurem = polünoom1.clone();
         }
-        else if ((polünoom2.length>polünoom1.length)){
+        if ((polünoom2.length >= polünoom1.length)){
             a = jaga(polünoom2, polünoom1);
             väiksem = polünoom1.clone();
             suurem = polünoom2.clone();
         }
+        //a[1] on jääk
         while (a[1].length != 1) {
             int[] r = väiksem.clone();
             a = jaga(suurem, väiksem);

@@ -43,9 +43,15 @@ public class Jäägiklass {
     //loome korpuse elementide tsüklilise esituse mingi moodustaja kaudu
     //seda peab alati peaprogrammis enne järgmiste meetodite kasutamist tehtud olema
     public int[] looTsükkel(){
+        if (moodul == 3){
+            int[] väljund = {1,2};
+            tsükkel = väljund;
+            return väljund;
+        }
         //leiame moodustaja (teame, et iga lõplik korpus on tsükliline)
         //põhimõtteliselt käime läbi elemendid ja kontrollime, et nad ei oleks liiga väikesel astmel võrdsed ühega
         // (kasulik on Lagrange'i teoreem)
+
         ArrayList<Integer> võimalikudAstmed = tegurid(moodul - 1);
         int moodustaja = 1;
         boolean muutuja;
@@ -72,7 +78,7 @@ public class Jäägiklass {
 
     public int pöördarv(int a){ //leiab antud jäägiklassi pöördelemendi
         if(taandamine(a) == 0){
-            throw new ArithmeticException("Element on 0");
+            throw new ArithmeticException("Taandamise tulemus on 0");
         }
         else {
             int positsioon = 0;
@@ -98,7 +104,7 @@ public class Jäägiklass {
     //Tegurdus
     public ArrayList<Integer> tegurid(int arv){
         ArrayList<Integer> list= new ArrayList<>();
-        for (int i = 2; i <= arv; i++) {
+        for (int i = 2; i < arv; i++) {
             if (arv % i == 0){
                 list.add(i);
                 for (int j = 0; j < list.size()-1; j++) {

@@ -67,6 +67,10 @@ public class Liides {
                 if (tegevus == 4) {
                     System.out.println("Lahutamise tulemus on " + Zn.lahutamine(arv1, arv2));
                 }
+                
+                if(tegevus==8){
+                    System.out.println("Arv1 astmel arv2 on " + Zn.astendamine(arv1,arv2));
+                }
             }
         }
 
