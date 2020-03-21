@@ -38,7 +38,7 @@ public class Liides {
 
         System.out.println("Kas soovid tehet teostada: 1. jäägiklassis või 2. polünoomide klassis?");
         int valik1 = scan.nextInt();
-        
+
         while(tegevus == 5 && valik1 == 1 || tegevus == 6 && valik1 == 1){
             System.out.println("Antud tehet saab teostada ainult polünoomide klassis. Palun vali õige klass.");
             valik1 = scan.nextInt();
@@ -47,12 +47,20 @@ public class Liides {
             }
         }
 
+        while(tegevus == 7 && valik1 ==2 || tegevus == 8 && valik1==1){
+            System.out.println("Antud tehet saab teostada ainult jäägiklassis. Palun vali õige klass.");
+            valik1 = scan.nextInt();
+            if ((valik1==1)){
+                break;
+            }
+        }
+
         //Jäägiklassi tehted
         if (valik1 == 1) {
             if(tegevus==7){
-                System.out.println("Sisesta täisarv, mille pöördarvu soovid leida.");
+                System.out.println("Sisesta täisarv, mille pöördelementi soovid leida.");
                 int arv = scan.nextInt();
-                System.out.println("Arvu pöördarv on " + Zn.pöördarv(arv));
+                System.out.println("Arvu pöördelement on " + Zn.pöördarv(arv));
             }
 
             else {
