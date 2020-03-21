@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Polünoomid {
@@ -195,13 +194,31 @@ public class Polünoomid {
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
         int[][] a = new int[2][2];
-        while (a[1].length != 1) {
-            int[] r = polünoom2;
+        int pikkus = Math.max(polünoom1.length, polünoom2.length);
+        int pikkus2 = Math.min(polünoom1.length, polünoom2.length);
+        int[] väiksem= new int[pikkus2];
+        int[] suurem = new int[pikkus];
+        
+        if(polünoom1.length > polünoom2.length) {
             a = jaga(polünoom1, polünoom2);
-            polünoom2 = a[0];
-            polünoom1 = r;
+            väiksem = polünoom2.clone();
+            suurem = polünoom1.clone();
+        }
+        else if ((polünoom2.length>polünoom1.length)){
+            a = jaga(polünoom2, polünoom1);
+            väiksem = polünoom1.clone();
+            suurem = polünoom2.clone();
+        }
+        while (a[1].length != 1) {
+            int[] r = väiksem.clone();
+            a = jaga(suurem, väiksem);
+            väiksem = a[1].clone();
+            suurem = r.clone();
         }
 
+        if(a[1][0]==0){
+            return väiksem;
+        }
         int[] pöördarv = {Zn.pöördarv(a[1][0])};
         return korruta(pöördarv,a[1]);
     }
