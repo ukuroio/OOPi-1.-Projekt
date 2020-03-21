@@ -44,7 +44,7 @@ public class Liides {
             valik1 = scan.nextInt();
         }
 
-        while(tegevus == 7 && valik1 ==2 || tegevus == 8 && valik1==1){
+        while(tegevus == 7 && valik1 ==2 || tegevus == 8 && valik1==2){
             System.out.println("Antud tehet saab teostada ainult jäägiklassis. Palun vali õige klass.");
             valik1 = scan.nextInt();
         }
