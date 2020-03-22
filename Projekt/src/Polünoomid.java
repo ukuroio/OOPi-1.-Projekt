@@ -166,10 +166,9 @@ public class Polünoomid {
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
 
-        for (int i = 0; i < jagaja.length ; i++) {
-            if(jagaja.length==1 && jagaja[i]==0){
-                throw new ArithmeticException("Nulliga jagamine");
-            }
+        int[] o = {0};
+        if(Arrays.equals(jagaja, o)){
+            throw new ArithmeticException("Nulliga jagamine");
         }
 
         //loome väljundi kujul [jagatis, jääk]
@@ -194,8 +193,16 @@ public class Polünoomid {
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
 
-        if(polünoom1[0]==0 && polünoom2[0]==0){
+        //Polünoom [0], mida kasutan allolevate tingimuste kontrollimiseks
+        int[] o = {0};
+
+        if(Arrays.equals(polünoom1,o)&&Arrays.equals(polünoom2, o)){
             return polünoom1;
+        }
+
+        if(Arrays.equals(polünoom1, o) && !Arrays.equals(polünoom2, o)){
+            int [] pöördarv = {Zn.pöördarv(polünoom2[0])};
+            return korruta(pöördarv, polünoom2);
         }
 
         int[][] a = new int[2][2];
@@ -204,29 +211,35 @@ public class Polünoomid {
         int[] väiksem= new int[pikkus2];
         int[] suurem = new int[pikkus];
 
-        if(polünoom1.length > polünoom2.length) {
+        if(polünoom1.length >= polünoom2.length) {
             a = jaga(polünoom1, polünoom2);
             väiksem = polünoom2.clone();
             suurem = polünoom1.clone();
         }
-        if ((polünoom2.length >= polünoom1.length)){
+        if ((polünoom2.length > polünoom1.length)){
             a = jaga(polünoom2, polünoom1);
             väiksem = polünoom1.clone();
             suurem = polünoom2.clone();
         }
-        //a[1] on jääk
-        while (a[1].length != 1) {
-            int[] r = väiksem.clone();
-            a = jaga(suurem, väiksem);
-            väiksem = a[1].clone();
-            suurem = r.clone();
+
+        //Teostab kohe jagamise ning kui jääk on kohe null, siis tagastab jagatise
+        int[][] b = jaga(suurem,väiksem);
+        if(Arrays.equals(b[1], o)){
+            return b[0];
         }
 
-        if(a[1][0]==0){
-            return väiksem;
+        int[] r = new int[pikkus2];
+
+        //Eukleidese algoritm
+        while (!Arrays.equals(a[1], o)) {
+                r = väiksem.clone();
+                a = jaga(suurem, väiksem);
+                väiksem = a[1].clone();
+                suurem = r.clone();
         }
-        int[] pöördarv = {Zn.pöördarv(a[1][0])};
-        return korruta(pöördarv,a[1]);
+
+        int[] pöördarv = {Zn.pöördarv(r[0])};
+        return korruta(pöördarv, r);
     }
 
     public int[] VÜK(int[] polünoom1, int[] polünoom2){
@@ -235,5 +248,4 @@ public class Polünoomid {
        int[][] vük = jaga(korrutis, süt);
        return vük[0];
     }
-
 }
