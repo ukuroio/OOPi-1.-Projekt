@@ -205,6 +205,11 @@ public class Polünoomid {
             return korruta(pöördarv, polünoom2);
         }
 
+        if(!Arrays.equals(polünoom1, o) && Arrays.equals(polünoom2, o)){
+            int [] pöördarv = {Zn.pöördarv(polünoom1[0])};
+            return korruta(pöördarv, polünoom1);
+        }
+
         int[][] a = new int[2][2];
         int pikkus = Math.max(polünoom1.length, polünoom2.length);
         int pikkus2 = Math.min(polünoom1.length, polünoom2.length);
@@ -222,10 +227,11 @@ public class Polünoomid {
             suurem = polünoom2.clone();
         }
 
-        //Teostab kohe jagamise ning kui jääk on kohe null, siis tagastab jagatise
+        //Teostab kohe jagamise ning kui jääk on kohe null, siis tagastab jagaja
         int[][] b = jaga(suurem,väiksem);
         if(Arrays.equals(b[1], o)){
-            return b[0];
+            int[] pöördarv = {Zn.pöördarv(väiksem[0])};
+            return korruta(pöördarv, väiksem);
         }
 
         int[] r = new int[pikkus2];
@@ -243,6 +249,10 @@ public class Polünoomid {
     }
 
     public int[] VÜK(int[] polünoom1, int[] polünoom2){
+        int[] o = {0};
+        if(Arrays.equals(polünoom1, o) || Arrays.equals(polünoom2, o)){
+            return o;
+        }
        int[] korrutis = korruta(polünoom1, polünoom2);
        int[] süt = SÜT(polünoom1, polünoom2);
        int[][] vük = jaga(korrutis, süt);
