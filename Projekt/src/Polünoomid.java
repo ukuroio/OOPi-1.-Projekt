@@ -216,6 +216,7 @@ public class Polünoomid {
         int[] väiksem= new int[pikkus2];
         int[] suurem = new int[pikkus];
 
+        //Leiab kasutaja sisestatud polünoomidest suurema ja väiksema, et SÜTi leidmine kommutatiivne oleks
         if(polünoom1.length >= polünoom2.length) {
             a = jaga(polünoom1, polünoom2);
             väiksem = polünoom2.clone();

@@ -101,7 +101,7 @@ public class Jäägiklass {
         }
     }
 
-    //Tegurdus
+    //Tegurdamine
     public ArrayList<Integer> tegurid(int arv){
         ArrayList<Integer> list= new ArrayList<>();
         for (int i = 2; i < arv; i++) {

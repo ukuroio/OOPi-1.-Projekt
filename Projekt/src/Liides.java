@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Liides {
 
+    //Teostab algarvukontrolli
     static boolean onAlgarv(int arv){
         if (arv < 2){
             return false;
