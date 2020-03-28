@@ -189,6 +189,7 @@ public class Polünoomid {
         return väljund;
     }
 
+    //Polünoomide suurima ühisteguri leidmine
     public int[] SÜT(int[] polünoom1, int[] polünoom2) {
         Jäägiklass Zn = new Jäägiklass(moodul);
         Zn.looTsükkel();
@@ -218,12 +219,10 @@ public class Polünoomid {
 
         //Leiab kasutaja sisestatud polünoomidest suurema ja väiksema, et SÜTi leidmine kommutatiivne oleks
         if(polünoom1.length >= polünoom2.length) {
-            a = jaga(polünoom1, polünoom2);
             väiksem = polünoom2.clone();
             suurem = polünoom1.clone();
         }
         if ((polünoom2.length > polünoom1.length)){
-            a = jaga(polünoom2, polünoom1);
             väiksem = polünoom1.clone();
             suurem = polünoom2.clone();
         }
@@ -249,14 +248,42 @@ public class Polünoomid {
         return korruta(pöördarv, r);
     }
 
+    // Polünoomide vähima ühiskordse leidmine
     public int[] VÜK(int[] polünoom1, int[] polünoom2){
         int[] o = {0};
         if(Arrays.equals(polünoom1, o) || Arrays.equals(polünoom2, o)){
             return o;
         }
+        // Teame, et VÜK(a,b) = a*b/SÜT(a,b)
        int[] korrutis = korruta(polünoom1, polünoom2);
        int[] süt = SÜT(polünoom1, polünoom2);
        int[][] vük = jaga(korrutis, süt);
        return vük[0];
+    }
+
+    //Polünoomi astendamine mittenegatiivse täisarvuga
+    public int[] astendaPolünoom(int[] polünoom1, int astendaja){
+
+        int[] a = {0};
+        int[] b = {1};
+        if(astendaja<0 || astendaja==0 && Arrays.equals(polünoom1, a)){
+            throw new ArithmeticException("Astendaja on negatiivne või astendad nulli nulliga.");
+        }
+
+        if(astendaja==0){
+            return b;
+        }
+
+        if(astendaja==1){
+            return polünoom1;
+        }
+
+        int[] vastus = new int[0];
+        int[] polünoom2 = polünoom1.clone();
+        for (int i = 1; i < astendaja ; i++) {
+            vastus = korruta(polünoom1, polünoom2);
+            polünoom1 = vastus.clone();
+        }
+        return vastus;
     }
 }

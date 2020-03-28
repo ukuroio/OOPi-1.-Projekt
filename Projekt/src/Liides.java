@@ -17,13 +17,20 @@ public class Liides {
     }
 
     public static void main(String[] args) {
+
         Scanner scan = new Scanner(System.in);
         System.out.println("Millist tegevust soovid lasta programmil teha? Sisesta vastav arv." + "\n" + "1. Jaga" + "\n" + "2. Korruta" +
                 "\n" + "3. Liida" + "\n" + "4. Lahuta" + "\n" + "5. Leia polünoomide SÜT" + "\n" + "6. Leia polünoomide VÜK" +
-                "\n" + "7. Leia pöördarv jäägiklassis" + "\n" + "8. Astenda jäägiklassis");
+                "\n" + "7. Leia pöördarv jäägiklassis" + "\n" + "8. Astenda");
 
         int tegevus = scan.nextInt();
         System.out.println("Valisid tegevuse " + tegevus);
+
+        while(tegevus>8 || tegevus<1){
+            System.out.println("Sellist tegevust ei ole. Palun vali uuesti");
+            tegevus = scan.nextInt();
+        }
+
         System.out.println("Sisesta moodul, mille järgi soovid jäägiklassikorpuse luua. Moodul peab olema algarv.");
         int moodul = scan.nextInt();
 
@@ -45,7 +52,7 @@ public class Liides {
             valik1 = scan.nextInt();
         }
 
-        while(tegevus == 7 && valik1 ==2 || tegevus == 8 && valik1==2){
+        while(tegevus == 7 && valik1 ==2){
             System.out.println("Antud tehet saab teostada ainult jäägiklassis. Palun vali õige klass.");
             valik1 = scan.nextInt();
         }
@@ -91,44 +98,57 @@ public class Liides {
             int n = scan.nextInt();
             int polünoom[] = new int[n];
             System.out.println("Sisesta esimese polünoomi kordajad");
+
             for (int i = 0; i < n; i++) {
                 polünoom[i] = scan.nextInt();
             }
             System.out.println("Sisestasid järgmise polünoomi: " + Arrays.toString(polünoom));
 
-            System.out.println("Sisesta teise polünoomi pikkus");
-            int m = scan.nextInt();
-            int polünoom2[] = new int[m];
-            System.out.println("Sisesta teise polünoomi kordajad");
-            for (int i = 0; i < m; i++) {
-                polünoom2[i] = scan.nextInt();
-            }
-            System.out.println("Sisestasid järgmise polünoomi: " + Arrays.toString(polünoom2));
+            if (tegevus == 8) {
+                System.out.println("Sisesta mittenegatiivne täisarvuline astendaja.");
+                int astendaja = scan.nextInt();
 
-            if(tegevus==1){
-                System.out.println("Polünoomide jagatis on " + Arrays.deepToString(((moodul2.jaga(polünoom, polünoom2)))));
+                while(astendaja<0){
+                    System.out.println("Astendaja peab olema mittenegatiivne täisarv. Sisesta uus astendaja.");
+                    astendaja = scan.nextInt();
+                }
+                System.out.println("Astendamise tulemus on " + Arrays.toString((moodul2.astendaPolünoom(polünoom, astendaja))));
             }
 
-            if(tegevus==2){
-                System.out.println("Polünoomide korrutis on " + Arrays.toString(moodul2.korruta(polünoom,polünoom2)));
-            }
+            else {
+                System.out.println("Sisesta teise polünoomi pikkus");
+                int m = scan.nextInt();
+                int polünoom2[] = new int[m];
+                System.out.println("Sisesta teise polünoomi kordajad");
+                for (int i = 0; i < m; i++) {
+                    polünoom2[i] = scan.nextInt();
+                }
+                System.out.println("Sisestasid järgmise polünoomi: " + Arrays.toString(polünoom2));
 
-            if(tegevus==3){
-                System.out.println("Polünoomide summa on " + Arrays.toString(moodul2.liida(polünoom,polünoom2)));
-            }
+                if (tegevus == 1) {
+                    System.out.println("Polünoomide jagatis on " + Arrays.deepToString(((moodul2.jaga(polünoom, polünoom2)))));
+                }
 
-            if(tegevus==4){
-                System.out.println("Polünoomide vahe on " + Arrays.toString(moodul2.lahuta(polünoom,polünoom2)));
-            }
+                if (tegevus == 2) {
+                    System.out.println("Polünoomide korrutis on " + Arrays.toString(moodul2.korruta(polünoom, polünoom2)));
+                }
 
-            if(tegevus==5){
-                System.out.println("Polünoomide SÜT on " + Arrays.toString(moodul2.ilusaleKujule((moodul2.SÜT(polünoom, polünoom2)))));
-            }
+                if (tegevus == 3) {
+                    System.out.println("Polünoomide summa on " + Arrays.toString(moodul2.liida(polünoom, polünoom2)));
+                }
 
-            if(tegevus==6){
-                System.out.println("Polünoomide VÜK on " + Arrays.toString(moodul2.VÜK(polünoom, polünoom2)));
-            }
+                if (tegevus == 4) {
+                    System.out.println("Polünoomide vahe on " + Arrays.toString(moodul2.lahuta(polünoom, polünoom2)));
+                }
 
+                if (tegevus == 5) {
+                    System.out.println("Polünoomide SÜT on " + Arrays.toString(moodul2.SÜT(polünoom, polünoom2)));
+                }
+
+                if (tegevus == 6) {
+                    System.out.println("Polünoomide VÜK on " + Arrays.toString(moodul2.VÜK(polünoom, polünoom2)));
+                }
+            }
         }
     }
 }
